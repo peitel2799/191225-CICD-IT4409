@@ -1,0 +1,10 @@
+BACKEND - YÊU CẦU BỔ SUNG
+
+POST: Email là duy nhất. Khi tạo user (hoặc tạo nhiều user), server.js luôn dùng User.findOne / User.find với email trước, nếu thấy trùng thì trả về 400 với { error: "Email đã tồn tại" }, nếu không mới cho tạo.
+POST: Hợp lệ hóa dữ liệu đầu vào. Mongoose Schema trong server.js khai báo required, minlength, min, match nên khi name, age, email sai định dạng thì Mongoose tự bắn ValidationError, backend bắt lỗi và trả 400 với thông báo chi tiết.
+FRONTEND - YÊU CẦU BỔ SUNG
+
+STT tăng dần theo toàn bộ các trang: Trong index.html, UserTable tính STT theo công thức (page - 1) * limit + index + 1 nên sang trang 2 sẽ tiếp tục 6,7,8... chứ không reset về 1.
+Page chuyển về 1 khi thay limit: Trong App của index.html, hàm handleLimitChange gọi setLimit(newLimit) rồi setPage(1) nên mỗi lần đổi số dòng/trang sẽ tự quay về trang đầu.
+Kiểm tra dữ liệu đầu vào: UserModal trên frontend kiểm tra name không rỗng và >= 2 ký tự, age >= 0, email có chứa '@' và '.', nếu sai sẽ lưu vào state errors và hiển thị dòng lỗi màu đỏ dưới từng input.
+Bổ sung thông báo lỗi: Khi gọi fetch (GET/POST/PUT/DELETE), frontend đọc JSON, nếu res.ok = false hoặc có data.error thì hiển thị alert với nội dung lỗi (ví dụ Email đã tồn tại, dữ liệu không hợp lệ), giúp người dùng biết rõ vấn đề khi nhập sai hoặc thiếu thông tin.
